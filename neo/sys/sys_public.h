@@ -112,6 +112,13 @@ If you have questions concerning this license or the applicable additional terms
 	#define	BUILD_STRING				"linux-ppc"
 	#define CPUSTRING					"ppc"
 	#define CPU_EASYARGS				0
+#elif defined(__amd64__) || defined(__x86_64__) || defined(_M_X64)
+	#define	BUILD_STRING				"linux-x64"
+	#define BUILD_OS_ID					2
+	#define CPUSTRING					"x64"
+	#define CPU_EASYARGS				1
+#else
+#error unsupported linux flavour
 #endif
 
 #define _alloca							alloca

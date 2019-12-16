@@ -1,1 +1,6 @@
 build
+tags
+*.pyc
+*.o
+*.dblite
+*.db

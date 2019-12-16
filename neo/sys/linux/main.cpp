@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef ID_MCHECK
 #include <mcheck.h>
 #endif
+#if defined(__amd64__) || defined(__x86_64__) || defined(_M_X64)
+#include <stdint.h>
+#endif
 
 static idStr	basepath;
 static idStr	savepath;
@@ -256,6 +259,10 @@ double Sys_GetClockTicks( void ) {
 						  "pop %%ebx\n"
 						  : "=r" (lo), "=r" (hi) );
 	return (double) lo + (double) 0xFFFFFFFF * hi;
+#elif defined(__amd64__) || defined(__x86_64__) || defined(_M_X64)
+	uint64_t result;
+    __asm__ __volatile__ ("rdtsc" : "=A" (result));
+    return result;
 #else
 #error unsupported CPU
 #endif
